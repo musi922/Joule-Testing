@@ -1,0 +1,21 @@
+ID;flightNumber;departure;arrival;departureTime;arrivalTime;status;airline_ID;passengers1_ID
+628db797-07fe-4885-a87a-dc19e5b7ca98;flight373;New York;London;2025-09-03T11:35:20+0200;2025-09-03T15:35:20+0100;Scheduled;airline1_ID;
+1d7d7eac-49a0-48c5-839b-d400d48ff446;flight7358;Los Angeles;Tokyo;2025-09-03T11:35:20+0200;2025-09-04T03:35:20+0900;Delayed;airline2_ID;
+8921dbfb-82ee-46f9-b145-d9b0f6bc7b66;flight6393;Paris;Berlin;2025-09-03T11:35:20+0200;2025-09-03T13:35:20+0200;Cancelled;airline3_ID;
+c2bdcc27-6017-4a5a-8ce3-2e94c95f125e;flight2137;Sydney;Melbourne;2025-09-03T11:35:20+0200;2025-09-03T12:35:20+1000;On Time;airline4_ID;
+0f613d87-0fd7-4d7b-b885-fc2314e7b070;flight6652;Dubai;Mumbai;2025-09-03T11:35:20+0200;2025-09-03T16:35:20+0530;Scheduled;airline5_ID;
+57e56f3f-73b1-4eee-a149-3674e45a8805;flight538;Toronto;Vancouver;2025-09-03T11:35:20+0200;2025-09-03T13:35:20-0700;Delayed;airline6_ID;
+8249689e-ac9e-4f08-b142-957a3ffb2a80;flight9847;Beijing;Shanghai;2025-09-03T11:35:20+0200;2025-09-03T13:35:20+0800;On Time;airline7_ID;
+7eb54e54-45ef-42f9-8759-2db03cdafed6;flight1656;Moscow;Saint Petersburg;2025-09-03T11:35:20+0200;2025-09-03T12:35:20+0300;Scheduled;airline8_ID;
+8ac5460e-60dd-47bd-a515-f56c04fc105f;flight8996;Johannesburg;Cape Town;2025-09-03T11:35:20+0200;2025-09-03T13:35:20+0200;Cancelled;airline9_ID;
+d6202a91-9e4b-4539-92e2-d0878a6cc429;flight6747;Rio de Janeiro;São Paulo;2025-09-03T11:35:20+0200;2025-09-03T12:35:20-0300;On Time;airline10_ID;
+712dd78d-bcad-4689-afe2-ede8685350c2;flight6328;Seoul;Busan;2025-09-03T11:35:20+0200;2025-09-03T12:35:20+0900;Scheduled;airline11_ID;
+3050d499-6d6e-49b4-a37f-f3d104d0e3dd;flight579;Bangkok;Phuket;2025-09-03T11:35:20+0200;2025-09-03T12:35:20+0700;Delayed;airline12_ID;
+4b050701-eda5-444a-9dbb-badb3d87ce5d;flight1254;Singapore;Kuala Lumpur;2025-09-03T11:35:20+0200;2025-09-03T12:35:20+0800;On Time;airline13_ID;
+241bbd6e-ba1d-4f70-998a-801949e8d35d;flight1151;Hong Kong;Taipei;2025-09-03T11:35:20+0200;2025-09-03T12:35:20+0800;Scheduled;airline14_ID;
+0597b423-3a0c-4a1c-86e4-5ddfbb0af238;flight6910;Istanbul;Ankara;2025-09-03T11:35:20+0200;2025-09-03T12:35:20+0300;Delayed;airline15_ID;
+8d7b0772-6a2f-4db5-a22c-4e6132198f28;flight3846;Mexico City;Cancun;2025-09-03T11:35:20+0200;2025-09-03T13:35:20-0500;On Time;airline16_ID;
+eabe7f67-0899-4eb6-b369-157501b53932;flight3003;Buenos Aires;Santiago;2025-09-03T11:35:20+0200;2025-09-03T13:35:20-0300;Scheduled;airline17_ID;
+b6c822fb-e660-41d5-82c6-38a7eb7d3a66;flight3093;Cairo;Alexandria;2025-09-03T11:35:20+0200;2025-09-03T12:35:20+0200;Cancelled;airline18_ID;
+8a0f11c9-8df6-4e0a-9119-eee9bcb690e5;flight7093;Lagos;Abuja;2025-09-03T11:35:20+0200;2025-09-03T12:35:20+0100;On Time;airline19_ID;
+eeeef4c2-905c-4987-bf3e-589e3c6917b9;flight4650;Delhi;Mumbai;2025-09-03T11:35:20+0200;2025-09-03T13:35:20+0530;Scheduled;airline20_ID;
