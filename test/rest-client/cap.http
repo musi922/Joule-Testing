@@ -1,0 +1,7 @@
+### call gemini
+POST http://localhost:4004/service/yT_Joule/callGeminiAI
+Content-Type: application/json
+
+{
+  "message": "what is ai"
+}
