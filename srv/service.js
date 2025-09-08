@@ -27,11 +27,13 @@ module.exports = async function () {
             );
 
             const accessToken = tokenResponse.data.access_token;
-            const messageText = message;
+            const messageText =  "answer in a friendly and not very many words but not few" + message ;
+            console.log("the message",messageText);
+            
             
             const cpiResponse = await axios.post(
                 'https://924b88d5trial.it-cpitrial05-rt.cfapps.us10-001.hana.ondemand.com/http/gemini',
-                messageText,  // Send plain text instead of JSON object
+                messageText,
                 {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
