@@ -1,22 +1,59 @@
 sap.ui.define([
   "sap/ui/core/mvc/Controller",
-  "sap/m/MessageToast",
+  "sap/m/MessageBox",
   "sap/m/Text"
-], function(Controller, MessageToast, Text) {
+], function(Controller, MessageBox, Text) {
   "use strict";
 
   return Controller.extend("yt_joule.controller.Main", {
     onInit: function() {
       const oModel = this.getOwnerComponent().getModel();
-      this.getView().setModel(oModel);
+      this.getView().setModel(oModel);      
+      
+      if (!oModel) {
+        MessageBox.error("no Omodel found")
+        
+      }
       
       const oChatModel = new sap.ui.model.json.JSONModel({
         chatInputValue: "",
         messages: []
       });
       this.getView().setModel(oChatModel, "chat");
+      console.log("Model data:", this.getView().getModel());
     },
+    onChartPress: function() {    
+    try {
+        var oRouter = this.getOwnerComponent().getRouter();        
+        if (!oRouter) {
+            MessageBox.error("Navigation error: Router not found");
+            return;
+        }
+        oRouter.navTo("Charts");        
+    } catch (error) {
+        MessageBox.error("Navigation failed: " + error.message);
+    }
+},
 
+getRouter: function() {
+    var oRouter = this.getOwnerComponent().getRouter();
+    return oRouter;
+},
+onProductPress: function(oEvent) {    
+    let oContext = oEvent.getSource().getBindingContext();
+    console.log("ocontext", oContext);
+    
+    if (oContext) {
+        let oFlightId = oContext.getProperty("ID");
+        console.log("Flight ID:", oFlightId);
+        
+        if (oFlightId) {
+            this.getRouter().navTo("Details", {
+                FlightId: oFlightId  
+            });
+        }
+    }
+},
     
     onToggleChat: function() {
       const oPanel = this.byId("chatPanel");
@@ -165,5 +202,6 @@ sap.ui.define([
       const sResponse = aResponses[Math.floor(Math.random() * aResponses.length)];
       this.addMessage(sResponse, "bot");
     }
+
   });
 });

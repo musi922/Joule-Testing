@@ -6,19 +6,20 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:f="sap.f"
     xmlns:layout="sap.ui.layout"
+    xmlns:microchart="sap.suite.ui.microchart"
 >
     <App id="app">
         <pages>
             <Page
-                id="listPage"
+                id="listPageContainer"
                 enableScrolling="false"
                 class="sapUiContentPadding"
             >
                 <content>
-                    <f:DynamicPage
-                        id="dynamicPageId"
-                        headerExpanded="true"
-                    >
+                    <f:DynamicPage id="listPage" headerExpanded="true">
+                        <f:header>
+                        </f:header>
+                        
                         <f:title>
                             <f:DynamicPageTitle>
                                 <f:heading>
@@ -39,6 +40,8 @@
                                         icon="sap-icon://excel-attachment"
                                         press="onExport"
                                     />
+                                    <Button text="Charts" icon="sap-icon://business-objects-experience" 
+                                    press="onChartPress" type="Navigation" />
                                 </f:actions>
                             </f:DynamicPageTitle>
                         </f:title>
@@ -47,17 +50,13 @@
                             <Table
                                 id="flightsTable"
                                 inset="false"
-                                mode="SingleSelectMaster"
                                 width="100%"
                                 growing="true"
                                 growingThreshold="20"
-                                items="{
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  path: '/Flights',
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    parameters: {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        $count: true,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            $orderby: 'flightNumber'
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              }"
+                                items="{ path: '/Flights',
+                                         parameters: { $count: true,
+                                                     $orderby: 'flightNumber'}
+                                       }"
                                 class="sapFDynamicPageAlignContent"
                                 alternateRowColors="true"
                             >
@@ -141,10 +140,7 @@
                                 </columns>
 
                                 <items>
-                                    <ColumnListItem
-                                        type="Navigation"
-                                        press="onSelectFlight"
-                                    >
+                                    <ColumnListItem type="Navigation" press="onProductPress" class="columnList">
                                         <cells>
                                             <Text text="{flightNumber}" />
                                             <Text text="{departure}" />

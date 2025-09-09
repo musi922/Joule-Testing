@@ -1,0 +1,291 @@
+<mvc:View 
+controllerName="yt_joule.controller.Charts"
+xmlns:mvc="sap.ui.core.mvc"
+xmlns="sap.m"
+xmlns:f="sap.f"
+xmlns:microchart="sap.suite.ui.microchart"
+xmlns:layout="sap.ui.layout"
+xmlns:core="sap.ui.core">
+
+<f:DynamicPage id="chartPage" headerExpanded="true">
+    <f:title>
+        <f:DynamicPageTitle>
+            <f:heading>
+                <ObjectHeader 
+                    id="chart" 
+                    title="Flight Analytics Dashboard" 
+                    number="127" 
+                    numberUnit="Total Flights"
+                    icon="sap-icon://chart-axis"
+                    backgroundDesign="Translucent"
+                    class="sapUiResponsiveMargin">
+                    
+                    <!-- Main Attributes -->
+                    <attributes>
+                        <ObjectAttribute title="Active Routes" text="45" active="true" press="onAttributePress"/>
+                        <ObjectAttribute title="On-Time Performance" text="94.2%" active="true" press="onAttributePress"/>
+                        <ObjectAttribute title="Average Load Factor" text="78.5%" />
+                        <ObjectAttribute title="Revenue Streams" text="12" active="true" press="onAttributePress"/>
+                    </attributes>
+                    
+                    <!-- Status Indicators -->
+                    <statuses>
+                        <ObjectStatus text="Operational" state="Success" icon="sap-icon://status-positive"/>
+                        <ObjectStatus text="Last Updated: Today 14:30" state="Information" icon="sap-icon://refresh"/>
+                        <ObjectStatus text="Data Quality: High" state="Success" icon="sap-icon://quality-issue"/>
+                    </statuses>
+                    
+                    <!-- Header Container for additional info -->
+                    
+                </ObjectHeader>
+            </f:heading>
+            <f:actions>
+                <Button text="Refresh Data" type="Emphasized" icon="sap-icon://refresh" press="onRefreshData"/>
+                <Button text="Export Report" icon="sap-icon://excel-attachment" press="onExportReport"/>
+                <Button text="Settings" icon="sap-icon://action-settings" press="onSettings"/>
+                <Button text="Back" type="Back" press="onNavBack" />
+            </f:actions>
+        </f:DynamicPageTitle>
+    </f:title>
+    
+    <f:content>
+        <!-- Quick Stats Panel -->
+        <Panel headerText="Quick Insights" expandable="false" class="sapUiResponsiveMargin">
+            <content>
+                <layout:HorizontalLayout allowWrapping="true" class="sapUiContentPadding">
+                    <layout:VerticalLayout class="sapUiLargeMarginEnd">
+                        <Label text="Top Route:" class="sapUiTinyMarginBottom"/>
+                        <Link text="NYC → LAX" press="onRoutePress" emphasized="true"/>
+                        <Text text="28 flights this week" class="sapUiTinyText"/>
+                    </layout:VerticalLayout>
+                    
+                    <layout:VerticalLayout class="sapUiLargeMarginEnd">
+                        <Label text="Peak Hours:" class="sapUiTinyMarginBottom"/>
+                        <Text text="08:00 - 10:00 AM" />
+                        <Text text="35% of daily traffic" class="sapUiTinyText"/>
+                    </layout:VerticalLayout>
+                    
+                    <layout:VerticalLayout class="sapUiLargeMarginEnd">
+                        <Label text="Average Delay:" class="sapUiTinyMarginBottom"/>
+                        <ObjectNumber number="12" unit="minutes" state="Warning"/>
+                        <Text text="↓ 5 min vs last month" class="sapUiTinyText"/>
+                    </layout:VerticalLayout>
+                    
+                    <layout:VerticalLayout>
+                        <Label text="Satisfaction Score:" class="sapUiTinyMarginBottom"/>
+                        <RatingIndicator value="4.2" maxValue="5" editable="false" class="sapUiTinyMarginBottom"/>
+                        <Text text="Based on 1,247 reviews" class="sapUiTinyText"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+            </content>
+        </Panel>
+
+        <!-- Charts Section -->
+        <IconTabBar expanded="true" class="sapUiResponsiveContentPadding" selectedKey="barChart">
+            <items>
+                <!-- Bar Chart Tab -->
+                <IconTabFilter key="barChart" text="Flight Prices" icon="sap-icon://bar-chart" iconColor="Positive">
+                    <content>
+                        <VBox class="sapUiMediumMargin">
+                            <layout:HorizontalLayout class="sapUiMediumMarginBottom">
+                                <Title text="Flight Prices by Route" level="H3" class="sapUiMediumMarginEnd"/>
+                                <Button text="Filter" icon="sap-icon://filter" type="Transparent" press="onFilterChart"/>
+                                <Button text="Drill Down" icon="sap-icon://drill-down" type="Transparent" press="onDrillDown"/>
+                            </layout:HorizontalLayout>
+                            
+                            <microchart:InteractiveBarChart 
+                                labelWidth="25%" 
+                                selectionChanged="onSelectionChanged" 
+                                press="onChartPress"
+                                bars="{/Flights}">
+                                <microchart:bars>
+                                    <microchart:InteractiveBarChartBar 
+                                        label="{flightNumber}" 
+                                        value="{price}" 
+                                        color="Good"/>
+                                </microchart:bars>
+                            </microchart:InteractiveBarChart>
+                            
+                            <!-- Chart Legend/Info -->
+                            <layout:HorizontalLayout class="sapUiMediumMarginTop" allowWrapping="true">
+                                <VBox class="sapUiMediumMarginEnd">
+                                    <Label text="Highest Price:" class="sapUiTinyMarginBottom"/>
+                                    <ObjectNumber number="1,250" unit="USD" emphasized="true"/>
+                                </VBox>
+                                <VBox class="sapUiMediumMarginEnd">
+                                    <Label text="Average Price:" class="sapUiTinyMarginBottom"/>
+                                    <ObjectNumber number="685" unit="USD"/>
+                                </VBox>
+                                <VBox>
+                                    <Label text="Lowest Price:" class="sapUiTinyMarginBottom"/>
+                                    <ObjectNumber number="299" unit="USD" state="Success"/>
+                                </VBox>
+                            </layout:HorizontalLayout>
+                        </VBox>
+                    </content>
+                </IconTabFilter>
+                
+                <!-- Line Chart Tab -->
+                <IconTabFilter key="lineChart" text="Price Trends" icon="sap-icon://line-chart" iconColor="Critical">
+                    <content>
+                        <VBox class="sapUiMediumMargin">
+                            <layout:HorizontalLayout class="sapUiMediumMarginBottom">
+                                <Title text="Price Trend Analysis" level="H3" class="sapUiMediumMarginEnd"/>
+                                <SegmentedButton selectedKey="7days">
+                                    <items>
+                                        <SegmentedButtonItem key="7days" text="7 Days"/>
+                                        <SegmentedButtonItem key="30days" text="30 Days"/>
+                                        <SegmentedButtonItem key="90days" text="90 Days"/>
+                                    </items>
+                                </SegmentedButton>
+                            </layout:HorizontalLayout>
+                            
+                            <microchart:InteractiveLineChart 
+                                selectionChanged="onSelectionChanged" 
+                                press="onChartPress"
+                                points="{/Flights}">
+                                <microchart:points>
+                                    <microchart:InteractiveLineChartPoint 
+                                        label="{flightNumber}"
+                                        value="{price}" 
+                                        color="Good"/>
+                                </microchart:points>
+                            </microchart:InteractiveLineChart>
+                            
+                            <!-- Trend Indicators -->
+                            <layout:HorizontalLayout class="sapUiMediumMarginTop">
+                                <VBox class="sapUiMediumMarginEnd">
+                                    <ObjectStatus text="Trend: Upward" state="Warning" icon="sap-icon://trend-up"/>
+                                    <Text text="↑ 8.5% this quarter" class="sapUiTinyText"/>
+                                </VBox>
+                                <VBox class="sapUiMediumMarginEnd">
+                                    <ObjectStatus text="Volatility: Medium" state="Information" icon="sap-icon://activity-2"/>
+                                    <Text text="Seasonal patterns detected" class="sapUiTinyText"/>
+                                </VBox>
+                                <VBox>
+                                    <ObjectStatus text="Forecast: Stable" state="Success" icon="sap-icon://future"/>
+                                    <Text text="Next 30 days outlook" class="sapUiTinyText"/>
+                                </VBox>
+                            </layout:HorizontalLayout>
+                        </VBox>
+                    </content>
+                </IconTabFilter>
+
+                <!--Donut Chart-->
+                <IconTabFilter text="Donut Chart" icon="sap-icon://pie-chart">
+                    <content>
+                        <VBox class="sapUiMediumMargin">
+                            <Title text="Flight Status Distribution" level="H3" class="sapUiSmallMarginBottom"/>
+                            <microchart:InteractiveDonutChart 
+                                press="onChartPress"
+                                segments="{/Flights}">
+                                <microchart:segments>
+                                    <microchart:InteractiveDonutChartSegment 
+                                        label="{status}"
+                                        value="{price}"
+                                        color="Good"/>
+                                </microchart:segments>
+                            </microchart:InteractiveDonutChart>
+                        </VBox>
+                    </content>
+                </IconTabFilter>
+                
+                <!-- Performance Dashboard -->
+                <IconTabFilter key="performance" text="Performance" icon="sap-icon://performance">
+                    <content>
+                        <VBox class="sapUiMediumMargin">
+                            <Title text="Operational Performance Metrics" level="H3" class="sapUiMediumMarginBottom"/>
+                            
+                            <!-- KPI Cards -->
+                            <layout:Grid defaultSpan="XL3 L4 M6 S12" class="sapUiMediumMarginBottom">
+                                <!-- On-Time Performance Card -->
+                                <VBox class="sapUiContentPadding" >
+                                    <layout:HorizontalLayout class="sapUiTinyMarginBottom">
+                                        <core:Icon src="sap-icon://time-overtime" size="1.5rem" color="Positive" class="sapUiTinyMarginEnd"/>
+                                        <Title text="On-Time Performance" level="H4"/>
+                                    </layout:HorizontalLayout>
+                                    <ObjectNumber number="94.2" unit="%" emphasized="true" state="Success" class="sapUiTinyMarginBottom"/>
+                                    <ProgressIndicator percentValue="94.2" state="Success" class="sapUiTinyMarginBottom"/>
+                                    <Text text="↑ 2.1% vs last month" class="sapUiTinyText"/>
+                                </VBox>
+                                
+                                <!-- Load Factor Card -->
+                                <VBox class="sapUiContentPadding">
+                                    <layout:HorizontalLayout class="sapUiTinyMarginBottom">
+                                        <core:Icon src="sap-icon://person-placeholder" size="1.5rem" color="Critical" class="sapUiTinyMarginEnd"/>
+                                        <Title text="Average Load Factor" level="H4"/>
+                                    </layout:HorizontalLayout>
+                                    <ObjectNumber number="78.5" unit="%" emphasized="true" state="Warning" class="sapUiTinyMarginBottom"/>
+                                    <ProgressIndicator percentValue="78.5" state="Warning" class="sapUiTinyMarginBottom"/>
+                                    <Text text="Target: 82%" class="sapUiTinyText"/>
+                                </VBox>
+                                
+                                <!-- Revenue Card -->
+                                <VBox class="sapUiContentPadding">
+                                    <layout:HorizontalLayout class="sapUiTinyMarginBottom">
+                                        <core:Icon src="sap-icon://money-bills" size="1.5rem" color="Good" class="sapUiTinyMarginEnd"/>
+                                        <Title text="Monthly Revenue" level="H4"/>
+                                    </layout:HorizontalLayout>
+                                    <ObjectNumber number="2.4M" unit="USD" emphasized="true" state="Success" class="sapUiTinyMarginBottom"/>
+                                    <ProgressIndicator percentValue="85" state="Success" class="sapUiTinyMarginBottom"/>
+                                    <Text text="85% of monthly target" class="sapUiTinyText"/>
+                                </VBox>
+                                
+                                <!-- Customer Satisfaction Card -->
+                                <VBox class="sapUiContentPadding">
+                                    <layout:HorizontalLayout class="sapUiTinyMarginBottom">
+                                        <core:Icon src="sap-icon://customer" size="1.5rem" color="Positive" class="sapUiTinyMarginEnd"/>
+                                        <Title text="Customer Satisfaction" level="H4"/>
+                                    </layout:HorizontalLayout>
+                                    <RatingIndicator value="4.2" maxValue="5" editable="false" class="sapUiTinyMarginBottom"/>
+                                    <ObjectNumber number="4.2" unit="/5.0" emphasized="true" state="Success" class="sapUiTinyMarginBottom"/>
+                                    <Text text="Based on 1,247 reviews" class="sapUiTinyText"/>
+                                </VBox>
+                            </layout:Grid>
+                            
+                            <!-- Mini Charts Row -->
+                            <layout:HorizontalLayout allowWrapping="true" class="sapUiMediumMarginTop">
+                                <VBox class="sapUiLargeMarginEnd">
+                                    <Title text="Weekly Flights" level="H5" class="sapUiTinyMarginBottom"/>
+                                    <microchart:ColumnMicroChart 
+                                        size="M" 
+                                        allowColumnLabels="false"
+                                        class="sapUiTinyMarginBottom">
+                                        <microchart:columns>
+                                            <microchart:ColumnMicroChartData value="18" color="Good"/>
+                                            <microchart:ColumnMicroChartData value="22" color="Good"/>
+                                            <microchart:ColumnMicroChartData value="15" color="Critical"/>
+                                            <microchart:ColumnMicroChartData value="25" color="Good"/>
+                                            <microchart:ColumnMicroChartData value="19" color="Good"/>
+                                            <microchart:ColumnMicroChartData value="28" color="Good"/>
+                                            <microchart:ColumnMicroChartData value="31" color="Good"/>
+                                        </microchart:columns>
+                                    </microchart:ColumnMicroChart>
+                                    <Text text="Mon - Sun" class="sapUiTinyText"/>
+                                </VBox>
+                                
+                                <VBox class="sapUiLargeMarginEnd">
+                                    <Title text="Fuel Efficiency" level="H5" class="sapUiTinyMarginBottom"/>
+                                    <microchart:RadialMicroChart percentage="87" class="sapUiTinyMarginBottom"/>
+                                    <Text text="87% efficiency" class="sapUiTinyText"/>
+                                </VBox>
+                                
+                                <VBox>
+                                    <Title text="Route Utilization" level="H5" class="sapUiTinyMarginBottom"/>
+                                    <microchart:BulletMicroChart 
+                                        targetValue="85" 
+                                        maxValue="100"
+                                        size="M"
+                                        class="sapUiTinyMarginBottom"/>
+                                    <Text text="78% of capacity used" class="sapUiTinyText"/>
+                                </VBox>
+                            </layout:HorizontalLayout>
+                        </VBox>
+                    </content>
+                </IconTabFilter>
+            </items>
+        </IconTabBar>
+    </f:content>
+</f:DynamicPage>
+
+</mvc:View>

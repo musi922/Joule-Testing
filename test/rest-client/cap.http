@@ -5,3 +5,8 @@ Content-Type: application/json
 {
   "message": "what is ai"
 }
+
+### GET FLIGHTSL
+
+GET http://localhost:4004/service/yT_Joule/Flights
+Accept: application/json

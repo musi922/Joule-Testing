@@ -1,0 +1,228 @@
+<mvc:View xmlns:microchart="sap.suite.ui.microchart"
+    controllerName="yt_joule.controller.Details"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+>
+    <f:DynamicPage id="objectPageLayout" headerExpanded="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <ObjectHeader
+                        id="objectHeader"
+                        title="{flightNumber}"
+                        titleLevel="H1"
+                        number="{status}"
+                        numberState="{path: 'status', formatter: '.formatStatusState'}"
+                        icon="sap-icon://flight"
+                        iconDisplayShape="Circle"
+                        iconAlt="Flight"
+                    >
+                        <attributes>
+                            <ObjectAttribute 
+                                title="Route" 
+                                text="{departure} → {arrival}"
+                            />
+                        </attributes>
+                        <firstStatus>
+                            <ObjectStatus 
+                                text="Departure: {path: 'departureTime', type: 'sap.ui.model.odata.type.DateTimeOffset'}"
+                                icon="sap-icon://departure"
+                            />
+                        </firstStatus>
+                        <secondStatus>
+                            <ObjectStatus 
+                                text="Arrival: {path: 'arrivalTime', type: 'sap.ui.model.odata.type.DateTimeOffset'}"
+                                icon="sap-icon://arrival"
+                            />
+                        </secondStatus>
+                    </ObjectHeader>
+                </f:heading>
+                <f:actions>
+                    <Button 
+                        text="Edit" 
+                        type="Emphasized" 
+                        icon="sap-icon://edit"
+                        press="onEdit"
+                    />
+                    <Button 
+                        text="Delete" 
+                        type="Transparent" 
+                        icon="sap-icon://delete"
+                        press="onDelete"
+                    />
+                    <Button 
+                        text="Save" 
+                        type="Accept" 
+                        icon="sap-icon://save"
+                        press="onSave"
+                        visible="false"
+                        id="saveButton"
+                    />
+                </f:actions>
+                <f:navigationActions>
+                    <Button 
+                        type="Back" 
+                        press="onNavBack"
+                    />
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <layout:Grid 
+                    defaultSpan="L4 M6 S12"
+                    class="sapUiMediumMargin"
+                >
+                    <!-- General Information Section -->
+                    <layout:VerticalLayout class="sapUiMediumMarginEnd">
+                        <Label text="General Information" design="Bold" class="sapUiMediumMarginBottom"/>
+                        
+                        <layout:HorizontalLayout class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://flight" class="sapUiTinyMarginEnd"/>
+                            <layout:VerticalLayout>
+                                <Label text="Flight Number"/>
+                                <Text text="{flightNumber}" class="sapUiTinyMarginBottom"/>
+                            </layout:VerticalLayout>
+                        </layout:HorizontalLayout>
+
+                        <layout:HorizontalLayout class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://status-positive" class="sapUiTinyMarginEnd"/>
+                            <layout:VerticalLayout>
+                                <Label text="Status"/>
+                                <ObjectStatus 
+                                    text="{status}"
+                                    state="{path: 'status', formatter: '.formatStatusState'}"
+                                    class="sapUiTinyMarginBottom"
+                                />
+                            </layout:VerticalLayout>
+                        </layout:HorizontalLayout>
+
+                        
+                    </layout:VerticalLayout>
+
+                    <!-- Route Information Section -->
+                    <layout:VerticalLayout class="sapUiMediumMarginEnd">
+                        <Label text="Route Details" design="Bold" class="sapUiMediumMarginBottom"/>
+                        
+                        <layout:HorizontalLayout class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://departure" class="sapUiTinyMarginEnd"/>
+                            <layout:VerticalLayout>
+                                <Label text="Departure"/>
+                                <Text text="{departure}" class="sapUiTinyMarginBottom"/>
+                            </layout:VerticalLayout>
+                        </layout:HorizontalLayout>
+
+                        <layout:HorizontalLayout class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://arrival" class="sapUiTinyMarginEnd"/>
+                            <layout:VerticalLayout>
+                                <Label text="Arrival"/>
+                                <Text text="{arrival}" class="sapUiTinyMarginBottom"/>
+                            </layout:VerticalLayout>
+                        </layout:HorizontalLayout>
+
+                    </layout:VerticalLayout>
+
+                    <!-- Communication Data Section -->
+                    <layout:VerticalLayout>
+                        <Label text="Schedule Information" design="Bold" class="sapUiMediumMarginBottom"/>
+                        
+                        <layout:HorizontalLayout class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://time-entry-request" class="sapUiTinyMarginEnd"/>
+                            <layout:VerticalLayout>
+                                <Label text="Departure Time"/>
+                                <Text 
+                                    text="{path: 'departureTime', type: 'sap.ui.model.odata.type.DateTimeOffset'}" 
+                                    class="sapUiTinyMarginBottom"
+                                />
+                            </layout:VerticalLayout>
+                        </layout:HorizontalLayout>
+
+                        <layout:HorizontalLayout class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://time-overtime" class="sapUiTinyMarginEnd"/>
+                            <layout:VerticalLayout>
+                                <Label text="Arrival Time"/>
+                                <Text 
+                                    text="{path: 'arrivalTime', type: 'sap.ui.model.odata.type.DateTimeOffset'}" 
+                                    class="sapUiTinyMarginBottom"
+                                />
+                            </layout:VerticalLayout>
+                        </layout:HorizontalLayout>
+
+                        <layout:HorizontalLayout class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://create-form" class="sapUiTinyMarginEnd"/>
+                            <layout:VerticalLayout>
+                                <Label text="Flight ID"/>
+                                <Text text="{ID}" class="sapUiTinyMarginBottom"/>
+                            </layout:VerticalLayout>
+                        </layout:HorizontalLayout>
+                    </layout:VerticalLayout>
+                </layout:Grid>
+               <microchart:InteractiveBarChart labelWidth="40%" selectionChanged="selectionChnaged" press="press" >
+               <microchart:bars>
+               <microchart:InteractiveBarChartBar label="Price" value="{price}" color="Good"/>
+               </microchart:bars>
+               </microchart:InteractiveBarChart>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+            <IconTabBar expanded="true" class="sapUiResponsiveContentPadding">
+                <items>
+                    <!-- General Tab -->
+                    <IconTabFilter text="General" icon="sap-icon://hint">
+                        <content>
+                            <Panel headerText="Flight Details" class="sapUiResponsiveMargin">
+                                <content>
+                                    <form:SimpleForm 
+                                        id="detailForm"
+                                        editable="false"
+                                        layout="ResponsiveGridLayout"
+                                        xmlns:form="sap.ui.layout.form"
+                                        class="sapUiMediumMargin"
+                                    >
+                                        <form:content>
+                                            <Label text="Flight Number"/>
+                                            <Input value="{flightNumber}" enabled="false"/>
+                                            
+                                            <Label text="Departure"/>
+                                            <Input value="{departure}"/>
+                                            
+                                            <Label text="Arrival"/>
+                                            <Input value="{arrival}"/>
+                                            
+                                            <Label text="Departure Time"/>
+                                            <DateTimePicker 
+                                                value="{path: 'departureTime', type: 'sap.ui.model.odata.type.DateTimeOffset'}"
+                                            />
+                                            
+                                            <Label text="Arrival Time"/>
+                                            <DateTimePicker 
+                                                value="{path: 'arrivalTime', type: 'sap.ui.model.odata.type.DateTimeOffset'}"
+                                            />
+                                            
+                                            <Label text="Status"/>
+                                            <Select selectedKey="{status}">
+                                                <core:Item key="Scheduled" text="Scheduled"/>
+                                                <core:Item key="Delayed" text="Delayed"/>
+                                                <core:Item key="Cancelled" text="Cancelled"/>
+                                                <core:Item key="Boarding" text="Boarding"/>
+                                                <core:Item key="Departed" text="Departed"/>
+                                                <core:Item key="Arrived" text="Arrived"/>
+                                            </Select>
+                                            
+                                            
+                                        </form:content>
+                                    </form:SimpleForm>
+                                </content>
+                            </Panel>
+                        </content>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

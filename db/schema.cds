@@ -4,6 +4,7 @@ using { cuid } from '@sap/cds/common';
 @assert.unique: { flightNumber: [flightNumber] }
 entity Flights : cuid {
   flightNumber: String(10) @mandatory;
+  price: Integer;
   departure: String(100);
   arrival: String(100);
   departureTime: DateTime;
