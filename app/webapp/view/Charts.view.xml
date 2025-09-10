@@ -18,7 +18,8 @@ xmlns:core="sap.ui.core">
                     numberUnit="Total Flights"
                     icon="sap-icon://chart-axis"
                     backgroundDesign="Translucent"
-                    class="sapUiResponsiveMargin">
+                    class="sapUiResponsiveMargin"
+                    >
                     
                     <!-- Main Attributes -->
                     <attributes>
@@ -34,9 +35,7 @@ xmlns:core="sap.ui.core">
                         <ObjectStatus text="Last Updated: Today 14:30" state="Information" icon="sap-icon://refresh"/>
                         <ObjectStatus text="Data Quality: High" state="Success" icon="sap-icon://quality-issue"/>
                     </statuses>
-                    
-                    <!-- Header Container for additional info -->
-                    
+                                      
                 </ObjectHeader>
             </f:heading>
             <f:actions>
@@ -47,42 +46,42 @@ xmlns:core="sap.ui.core">
             </f:actions>
         </f:DynamicPageTitle>
     </f:title>
-    
     <f:content>
-        <!-- Quick Stats Panel -->
-        <Panel headerText="Quick Insights" expandable="false" class="sapUiResponsiveMargin">
-            <content>
-                <layout:HorizontalLayout allowWrapping="true" class="sapUiContentPadding">
-                    <layout:VerticalLayout class="sapUiLargeMarginEnd">
-                        <Label text="Top Route:" class="sapUiTinyMarginBottom"/>
-                        <Link text="NYC → LAX" press="onRoutePress" emphasized="true"/>
-                        <Text text="28 flights this week" class="sapUiTinyText"/>
-                    </layout:VerticalLayout>
-                    
-                    <layout:VerticalLayout class="sapUiLargeMarginEnd">
-                        <Label text="Peak Hours:" class="sapUiTinyMarginBottom"/>
-                        <Text text="08:00 - 10:00 AM" />
-                        <Text text="35% of daily traffic" class="sapUiTinyText"/>
-                    </layout:VerticalLayout>
-                    
-                    <layout:VerticalLayout class="sapUiLargeMarginEnd">
-                        <Label text="Average Delay:" class="sapUiTinyMarginBottom"/>
-                        <ObjectNumber number="12" unit="minutes" state="Warning"/>
-                        <Text text="↓ 5 min vs last month" class="sapUiTinyText"/>
-                    </layout:VerticalLayout>
-                    
-                    <layout:VerticalLayout>
-                        <Label text="Satisfaction Score:" class="sapUiTinyMarginBottom"/>
-                        <RatingIndicator value="4.2" maxValue="5" editable="false" class="sapUiTinyMarginBottom"/>
-                        <Text text="Based on 1,247 reviews" class="sapUiTinyText"/>
-                    </layout:VerticalLayout>
-                </layout:HorizontalLayout>
-            </content>
-        </Panel>
-
         <!-- Charts Section -->
-        <IconTabBar expanded="true" class="sapUiResponsiveContentPadding" selectedKey="barChart">
+        <IconTabBar expanded="true" class="sapUiResponsiveContentPadding" selectedKey="kpi">
             <items>
+        <!--Tiles For Kpi-->
+            <IconTabFilter key="kpi" text="KPI Cards" icon="sap-icon://kpi-corporate-performance">
+            <content>
+            <HBox class="sapUiMediumMargin">
+
+            <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Country-Specific Profit Margin"
+        frameType = "OneByOne" subheader="Expenses" press="onPress">
+        <TileContent unit="EUR" footer="Current Quarter" >
+            <NumericContent scale="M" value="1.96" valueColor="Error" indicator="Up" withMargin="false" />
+        </TileContent>
+    </GenericTile>
+    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Cumulative Totals" subheader="Expenses" press="onPress" >
+		<TileContent unit="Unit" footer="Footer Text">
+			<NumericContent value="1762" icon="sap-icon://line-charts" withMargin="false" />
+		</TileContent>
+	</GenericTile>
+    	<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="US Profit Margin" press="onPress" frameType = "OneByHalf">
+		<TileContent unit="Unit">
+			<NumericContent scale="%" value="12" valueColor="Critical" indicator="Up" withMargin="false" />
+		</TileContent>
+	</GenericTile>
+
+	<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Sales Fulfillment Application Title"
+				 subheader="Subtitle" press="onPress" frameType = "TwoByHalf">
+		<TileContent unit="EUR" footer="Current Quarter">
+			<ImageContent src="sap-icon://home-share" />
+		</TileContent>
+	</GenericTile>
+
+            </HBox>
+            </content>
+            </IconTabFilter>
                 <!-- Bar Chart Tab -->
                 <IconTabFilter key="barChart" text="Flight Prices" icon="sap-icon://bar-chart" iconColor="Positive">
                     <content>
@@ -90,7 +89,6 @@ xmlns:core="sap.ui.core">
                             <layout:HorizontalLayout class="sapUiMediumMarginBottom">
                                 <Title text="Flight Prices by Route" level="H3" class="sapUiMediumMarginEnd"/>
                                 <Button text="Filter" icon="sap-icon://filter" type="Transparent" press="onFilterChart"/>
-                                <Button text="Drill Down" icon="sap-icon://drill-down" type="Transparent" press="onDrillDown"/>
                             </layout:HorizontalLayout>
                             
                             <microchart:InteractiveBarChart 
@@ -189,7 +187,63 @@ xmlns:core="sap.ui.core">
                         </VBox>
                     </content>
                 </IconTabFilter>
-                
+                <!-- Table -->
+               <!-- Table -->
+                <IconTabFilter key="table" text="Table View" icon="sap-icon://chart-table-view">
+                    <content>
+                    <Table id="table" width="100%" growing="true" growingThreshold="20" items="{path: '/Flights'}" class="sapFDynamicPageAlignContent">
+                    <headerToolbar>
+                        <OverflowToolbar >
+                            <Title id="title" text="Flighths"/>
+                            <ToolbarSpacer/>
+                            <ToggleButton
+                                icon="sap-icon://grid"
+                                tooltip="Enable / Disable Cell Filter Functionality"
+                                />
+                            <Button
+                                icon="sap-icon://decline"
+                                />
+                            <ToolbarSeparator/>
+                            <SearchField
+                                placeholder="Filter"
+                                search="filterGlobally"
+                                liveChange="filterGlobally"
+                                width="15rem"/>
+                        </OverflowToolbar>
+                        </headerToolbar>
+                    <columns>
+                    <Column>
+                    <Text text="Flight Numbers"></Text>
+                    </Column>
+                    <Column>
+                    <Text text="Departure"></Text>
+                    </Column>
+                    <Column>
+                    <Text text="Arrival"></Text>
+                    </Column>
+                    <Column>
+                    <Text text="Departure Time"></Text>
+                    </Column>
+                    <Column>
+                    <Text text="Arrival Time"></Text>
+                    </Column>
+
+                    </columns>
+                    <items>
+                    <ColumnListItem >
+                    <cells>
+                    <Text text="{flightNumber}" />
+                    <Text text="{departure}" />
+                    <Text text="{arrival}" />
+                    <Text text="{path: 'departureTime', type: 'sap.ui.model.odata.type.DateTimeOffset'}" />
+                    <Text text="{path: 'arrivalTime', type: 'sap.ui.model.odata.type.DateTimeOffset'}" />
+                    </cells>
+                    </ColumnListItem>
+                    </items>
+
+                    </Table>
+                    </content>
+                </IconTabFilter>
                 <!-- Performance Dashboard -->
                 <IconTabFilter key="performance" text="Performance" icon="sap-icon://performance">
                     <content>
@@ -198,7 +252,6 @@ xmlns:core="sap.ui.core">
                             
                             <!-- KPI Cards -->
                             <layout:Grid defaultSpan="XL3 L4 M6 S12" class="sapUiMediumMarginBottom">
-                                <!-- On-Time Performance Card -->
                                 <VBox class="sapUiContentPadding" >
                                     <layout:HorizontalLayout class="sapUiTinyMarginBottom">
                                         <core:Icon src="sap-icon://time-overtime" size="1.5rem" color="Positive" class="sapUiTinyMarginEnd"/>
@@ -209,7 +262,6 @@ xmlns:core="sap.ui.core">
                                     <Text text="↑ 2.1% vs last month" class="sapUiTinyText"/>
                                 </VBox>
                                 
-                                <!-- Load Factor Card -->
                                 <VBox class="sapUiContentPadding">
                                     <layout:HorizontalLayout class="sapUiTinyMarginBottom">
                                         <core:Icon src="sap-icon://person-placeholder" size="1.5rem" color="Critical" class="sapUiTinyMarginEnd"/>
@@ -220,7 +272,6 @@ xmlns:core="sap.ui.core">
                                     <Text text="Target: 82%" class="sapUiTinyText"/>
                                 </VBox>
                                 
-                                <!-- Revenue Card -->
                                 <VBox class="sapUiContentPadding">
                                     <layout:HorizontalLayout class="sapUiTinyMarginBottom">
                                         <core:Icon src="sap-icon://money-bills" size="1.5rem" color="Good" class="sapUiTinyMarginEnd"/>
@@ -231,7 +282,6 @@ xmlns:core="sap.ui.core">
                                     <Text text="85% of monthly target" class="sapUiTinyText"/>
                                 </VBox>
                                 
-                                <!-- Customer Satisfaction Card -->
                                 <VBox class="sapUiContentPadding">
                                     <layout:HorizontalLayout class="sapUiTinyMarginBottom">
                                         <core:Icon src="sap-icon://customer" size="1.5rem" color="Positive" class="sapUiTinyMarginEnd"/>

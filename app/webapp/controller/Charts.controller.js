@@ -1,8 +1,10 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageBox",
-    "sap/m/MessageToast"
-], function(Controller, MessageBox, MessageToast) {
+    "sap/m/MessageToast",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
+], function(Controller, MessageBox, MessageToast, Filter, FilterOperator) {
     "use strict";
 
     return Controller.extend("yt_joule.controller.Charts", {
@@ -35,6 +37,35 @@ sap.ui.define([
         
         _updateDashboardMetrics: function() {
             MessageToast.show("Dashboard metrics updated");
+        },
+
+        filterGlobally: function(oEvent) {
+            const sQuery = oEvent.getParameter("newValue") || oEvent.getParameter("query") || "";
+            const oTable = this.byId("table");
+            const oBinding = oTable.getBinding("items");
+            
+            if (!oBinding) {
+                return;
+            }
+            
+            let aFilters = [];
+            
+            if (sQuery.trim()) {
+                const aFieldFilters = [
+                    new Filter("flightNumber", FilterOperator.Contains, sQuery),
+                    new Filter("departure", FilterOperator.Contains, sQuery),
+                    new Filter("arrival", FilterOperator.Contains, sQuery)
+                ];
+                
+                const oCombinedFilter = new Filter({
+                    filters: aFieldFilters,
+                    and: false
+                });
+                
+                aFilters.push(oCombinedFilter);
+            }
+            
+            oBinding.filter(aFilters);
         },
         
         onSelectionChanged: function(oEvent) {
