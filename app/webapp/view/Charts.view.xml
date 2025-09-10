@@ -187,7 +187,6 @@ xmlns:core="sap.ui.core">
                         </VBox>
                     </content>
                 </IconTabFilter>
-                <!-- Table -->
                <!-- Table -->
                 <IconTabFilter key="table" text="Table View" icon="sap-icon://chart-table-view">
                     <content>
