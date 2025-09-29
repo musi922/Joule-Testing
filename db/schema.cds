@@ -1,35 +1,46 @@
-namespace YT_Joule;
-using { cuid } from '@sap/cds/common';
+namespace Flights;
+using { cuid, managed } from '@sap/cds/common';
 
-@assert.unique: { flightNumber: [flightNumber] }
-entity Flights : cuid {
-  flightNumber: String(10) @mandatory;
-  price: Integer;
-  departure: String(100);
-  arrival: String(100);
-  departureTime: DateTime;
-  arrivalTime: DateTime;
+entity Flights : cuid, managed {
+  flightNumber: String(10) not null;
+  flightClass: String(100);
+  origin: String(100) not null;
+  destination: String(100) not null;
+  departureTime: Timestamp not null;
+  arrivalTime: Timestamp not null;
+  price: Decimal(10,2);
+  availableSeats: Integer;
+  totalSeats: Integer;
   status: String(20);
-  airline: Association to Airlines;
-  passengers: Association to many Passengers on passengers.flights1 = $self;
-  passengers1: Association to Passengers;
+  airline: String(20);
+  bookings: Association to many Bookings on bookings.flight = $self;
 }
 
-@assert.unique: { code: [code] }
-entity Airlines : cuid {
-  code: String(3) @mandatory;
-  name: String(100);
+entity Airlines : cuid, managed {
+  code: String(3) not null;
+  name: String(100) not null;
   country: String(50);
-  flights: Association to many Flights on flights.airline = $self;
+  contactEmail: String(100);
+  contactPhone: String(20);
 }
 
-@assert.unique: { passportNumber: [passportNumber] }
-entity Passengers : cuid {
-  passportNumber: String(20) @mandatory;
-  firstName: String(50);
-  lastName: String(50);
-  email: String(100);
-  flights: Association to many Flights on flights.passengers1 = $self;
-  flights1: Association to Flights;
+entity Passengers : cuid, managed {
+  passportNumber: String(20) not null;
+  firstName: String(50) not null;
+  lastName: String(50) not null;
+  email: String(100) not null;
+  phone: String(20);
+  dateOfBirth: Date;
+  nationality: String(50);
+  bookings: Association to many Bookings on bookings.passenger = $self;
 }
 
+entity Bookings : cuid, managed {
+  bookingReference: String(10) not null;
+  seatNumber: String(5);      
+  bookingStatus: String(20);
+  ticketPrice: Decimal(10,2);         
+  bookingDate: Timestamp not null;
+  passenger: Association to Passengers not null;
+  flight: Association to Flights not null;
+}

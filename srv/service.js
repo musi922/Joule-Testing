@@ -1,63 +1,26 @@
 const cds = require('@sap/cds');
+class FlightService extends cds.ApplicationService {
+   async init(){
+    this.before("CREATE", "Flights", this.#validateFlights);
+    await super.init()
+   }
+   async #validateFlights(req) {
+    const { flightNumber, origin, destination, departureTime, arrivalTime, airline } = req.data;
+    if(!flightNumber) return req.error(400, "ERROR_FLIGHTNUMBER_IS_REQUIRED")
+    if(!origin) return req.error(400, "ERROR_ORIGIN_IS_REQUIRED")
+    if(!destination) return req.error(400, "ERROR_DESTINATION_IS_REQUIRED")
+    if(!destination) return req.error(400, "ERROR_DESTINATION_IS_REQUIRED")
+    if(!departureTime) return req.error(400, "ERROR_DEPARTURETIME_IS_REQUIRED")
+    if(!arrivalTime) return req.error(400, "ERROR_ARRIVALTIME_IS_REQUIRED")
+    if(!airline) return req.error(400, "ERROR_AIRLINE_IS_REQUIRED")
 
-module.exports = async function () {
-    
-    this.on('callGeminiAI', async (req) => {
-        
-        const { message } = req.data;
-        const axios = require('axios');
 
-        try {
-            if (!message || message.trim() === '') {
-                return req.error(400, "Message is required");
-            }
+   const [existingFlightNumber] = await cds.run(SELECT.from("Flights").where({flightNumber}));
+    if(existingFlightNumber) return req.error(400, "ERROR_FLIGHTNUMBER_ALREADY_EXISTS")
 
-            const tokenUrl = 'https://924b88d5trial.authentication.us10.hana.ondemand.com/oauth/token';
-            const clientId = 'sb-1a77c837-ac48-4a56-91f7-d0d09a0c5872!b499548|it-rt-924b88d5trial!b26655';
-            const clientSecret = '62e2cece-4d2e-4c7a-87b8-db7c9d0d0bd1$RaXcAdY85AO0BZOGBDK0w4Mznv5F5ot7RmBXC87azSM=';
+   }
 
-            const tokenResponse = await axios.post(tokenUrl,
-                'grant_type=client_credentials',
-                {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'Authorization': `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`
-                    }
-                }
-            );
+}
 
-            const accessToken = tokenResponse.data.access_token;
-            const messageText =  "answer in a friendly and not very many words but not few" + message ;
-            console.log("the message",messageText);
-            
-            
-            const cpiResponse = await axios.post(
-                'https://924b88d5trial.it-cpitrial05-rt.cfapps.us10-001.hana.ondemand.com/http/gemini',
-                messageText,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`,
-                        'Content-Type': 'text/plain'
-                    }
-                }
-            );
-            return {
-                success: true,
-                response: cpiResponse.data.candidates?.[0]?.content?.parts?.[0]?.text || 
-                         cpiResponse.data.response || 
-                         cpiResponse.data.message || 
-                         cpiResponse.data.content || 
-                         JSON.stringify(cpiResponse.data),
-                error: null
-            };
 
-        } catch (error) {
-            console.error('Failed to call Gemini API:', error.response?.data || error.message);
-            return {
-                success: false,
-                response: null,
-                error: `AI service error: ${error.message}`
-            };
-        }
-    });
-};
+module.exports = FlightService;

@@ -1,0 +1,21 @@
+ID,code,name,country,contactEmail,contactPhone
+airline-1,RWA,RwandAir,Rwanda,info@rwandair.com,+250788123456
+airline-2,KLM,KLM Royal Dutch Airlines,Netherlands,support@klm.com,+31207474747
+airline-3,ETH,Ethiopian Airlines,Ethiopia,contact@ethiopianairlines.com,+251115179900
+airline-4,KEN,Kenya Airways,Kenya,info@kenya-airways.com,+254203274747
+airline-5,QTR,Qatar Airways,Qatar,support@qatarairways.com,+97444496000
+airline-6,UAE,Emirates,United Arab Emirates,contact@emirates.com,+97142162286
+airline-7,TUR,Turkish Airlines,Turkey,info@turkishairlines.com,+902124632323
+airline-8,BAW,British Airways,United Kingdom,support@ba.com,+442089382388
+airline-9,AFR,Air France,France,contact@airfrance.com,+33892702654
+airline-10,DLH,Lufthansa,Germany,info@lufthansa.com,+496986799799
+airline-11,SWR,Swiss International Air Lines,Switzerland,support@swiss.com,+41848700700
+airline-12,KLC,KLM Cityhopper,Netherlands,info@klmcityhopper.com,+31207474748
+airline-13,SAA,South African Airways,South Africa,contact@flysaa.com,+27861359722
+airline-14,EGY,EgyptAir,Egypt,info@egyptair.com,+20225189999
+airline-15,TUN,Tunisair,Tunisia,support@tunisair.com,+21670103700
+airline-16,RAM,Royal Air Maroc,Morocco,contact@royalairmaroc.com,+212522489797
+airline-17,BRU,Brussels Airlines,Belgium,info@brusselsairlines.com,+3227235111
+airline-18,TAP,TAP Air Portugal,Portugal,support@flytap.com,+351707205700
+airline-19,ITA,ITA Airways,Italy,contact@ita-airways.com,+390665951
+airline-20,AUA,Austrian Airlines,Austria,info@austrian.com,+43517661000

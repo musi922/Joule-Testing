@@ -1,0 +1,21 @@
+ID,passportNumber,firstName,lastName,email,phone,dateOfBirth,nationality
+passenger-1,RW123456,Jean,Munyakazi,jean.m@email.com,+250788111222,1985-03-15,Rwandan
+passenger-2,KE789012,Amina,Ochieng,amina.o@email.com,+254722333444,1990-07-22,Kenyan
+passenger-3,UK345678,James,Smith,james.smith@email.com,+447911555666,1982-11-08,British
+passenger-4,NL901234,Emma,van der Berg,emma.vdb@email.com,+31612777888,1988-04-30,Dutch
+passenger-5,ET567890,Dawit,Tadesse,dawit.t@email.com,+251911999000,1992-09-12,Ethiopian
+passenger-6,QA234567,Mohammed,Al-Rashid,mohammed.ar@email.com,+97433111222,1980-01-25,Qatari
+passenger-7,AE890123,Fatima,Hassan,fatima.h@email.com,+971501333444,1995-06-18,Emirati
+passenger-8,TR456789,Ayse,Yilmaz,ayse.y@email.com,+905321555666,1987-12-03,Turkish
+passenger-9,RW012345,Grace,Uwase,grace.u@email.com,+250788222333,1993-08-27,Rwandan
+passenger-10,FR678901,Pierre,Dubois,pierre.d@email.com,+33612444555,1984-02-14,French
+passenger-11,DE234567,Hans,Müller,hans.m@email.com,+491511666777,1989-10-09,German
+passenger-12,CH890123,Sophie,Weber,sophie.w@email.com,+41791888999,1991-05-21,Swiss
+passenger-13,ZA456789,Thabo,Khumalo,thabo.k@email.com,+27821000111,1986-07-16,South African
+passenger-14,EG012345,Nour,Ibrahim,nour.i@email.com,+201012222333,1994-03-05,Egyptian
+passenger-15,TN678901,Leila,Ben Ali,leila.ba@email.com,+21692444555,1983-11-28,Tunisian
+passenger-16,MA234567,Youssef,Alami,youssef.a@email.com,+212661666777,1990-09-10,Moroccan
+passenger-17,BE890123,Luc,Janssens,luc.j@email.com,+32471888999,1988-01-20,Belgian
+passenger-18,PT456789,Maria,Silva,maria.s@email.com,+351911000111,1992-06-07,Portuguese
+passenger-19,IT012345,Marco,Rossi,marco.r@email.com,+393331222333,1985-04-13,Italian
+passenger-20,AT678901,Anna,Schneider,anna.s@email.com,+436641444555,1991-12-30,Austrian

@@ -1,12 +1,30 @@
-### call gemini
-POST http://localhost:4004/service/yT_Joule/callGeminiAI
+### GET FLIGHTS
+GET http://localhost:4004/odata/v4/flights/Flights
+Accept: application/json
+
+### POST FLIGHTS
+POST http://localhost:4004/odata/v4/flights/Flights
 Content-Type: application/json
 
 {
-  "message": "what is ai"
+  "flightNumber": "ETH101",
+  "flightClass": "Economy",
+  "origin": "Kigali",
+  "destination": "Dubai",
+  "departureTime": "2025-09-30T08:00:00.000Z",
+  "arrivalTime": "2025-09-30T16:30:00.000Z",
+  "price": 850,
+  "availableSeats": 45,
+  "totalSeats": 180,
+  "status": "Scheduled",
+  "airline": "airline-144"
 }
-
-### GET FLIGHTSL
-
-GET http://localhost:4004/service/yT_Joule/Flights
+### GET Airlines
+GET http://localhost:4004/odata/v4/flights/Airlines
+Accept: application/json
+### GET Passengers
+GET http://localhost:4004/odata/v4/flights/Passengers
+Accept: application/json
+### GET Bookings
+GET http://localhost:4004/odata/v4/flights/Bookings
 Accept: application/json
