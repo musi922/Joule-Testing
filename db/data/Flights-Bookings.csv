@@ -1,0 +1,4 @@
+ID,seatNumber,bookingStatus,ticketPrice,bookingDate,flight_ID,passenger_ID
+booking-1,12A,Confirmed,850.00,2025-09-15,flight-1,passenger-1
+booking-2,08C,Confirmed,320.00,2025-09-18,flight-2,passenger-1
+booking-3,15F,Confirmed,1250.00,2025-09-10,flight-3,passenger-1

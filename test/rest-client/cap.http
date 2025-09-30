@@ -1,5 +1,5 @@
 ### GET FLIGHTS
-GET http://localhost:4004/odata/v4/flights/Flights
+GET http://localhost:4004/odata/v4/flights/Flights?$expand=bookings
 Accept: application/json
 
 ### POST FLIGHTS
@@ -11,20 +11,36 @@ Content-Type: application/json
   "flightClass": "Economy",
   "origin": "Kigali",
   "destination": "Dubai",
-  "departureTime": "2025-09-30T08:00:00.000Z",
-  "arrivalTime": "2025-09-30T16:30:00.000Z",
+  "departureTime": "2025-09-30",
+  "arrivalTime": "2025-09-30",
   "price": 850,
   "availableSeats": 45,
   "totalSeats": 180,
   "status": "Scheduled",
   "airline": "airline-144"
 }
+
+
+### Post Booking
+POST http://localhost:4004/odata/v4/flights/Bookings
+Content-Type: application/json
+
+{
+  "seatNumber": "12A",
+  "bookingStatus": "Confirmed",
+  "ticketPrice": 850,
+  "bookingDate": "2025-09-15",
+  "flight_ID": "flight-1",
+  "numberOfSeats": 25,
+  "passenger_ID" : "passenger-1"
+}
+
 ### GET Airlines
 GET http://localhost:4004/odata/v4/flights/Airlines
 Accept: application/json
 ### GET Passengers
-GET http://localhost:4004/odata/v4/flights/Passengers
+GET http://localhost:4004/odata/v4/flights/Passengers?$expand=bookings
 Accept: application/json
 ### GET Bookings
-GET http://localhost:4004/odata/v4/flights/Bookings
+GET http://localhost:4004/odata/v4/flights/Bookings?$expand=passenger
 Accept: application/json

@@ -1,0 +1,58 @@
+_schema-version: 3.3.0
+ID: Flights
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install
+        - npx cds build --production
+
+modules:
+  - name: Flights-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      instances: 1
+      memory: 256M           # Reduced memory
+      disk-quota: 1024M      # Reduced disk (1GB)
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: Flights-auth
+      - name: Flights-db
+
+  - name: Flights-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      memory: 256M           # Reduced memory
+      disk-quota: 2048M      # Reduced disk (2GB) as suggested
+      buildpack: nodejs_buildpack
+    requires:
+      - name: Flights-db
+
+resources:
+  - name: Flights-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: Flights-${org}-${space}
+        tenant-mode: dedicated
+        
+  - name: Flights-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared

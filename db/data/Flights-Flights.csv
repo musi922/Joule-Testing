@@ -1,0 +1,21 @@
+ID,flightNumber,origin,destination,departureTime,arrivalTime,price,availableSeats,totalSeats,status,airline,flightClass
+flight-1,RWA101,Kigali,Dubai,2025-09-30,2025-09-30,850.00,45,180,Scheduled,airline-1,Economy
+flight-2,RWA202,Kigali,Nairobi,2025-09-30,2025-09-30,320.00,28,120,Scheduled,airline-1,Economy
+flight-3,KLM305,Amsterdam,Kigali,2025-09-30,2025-10-01,1250.00,67,250,Scheduled,airline-2,Economy
+flight-4,ETH511,Addis Ababa,Kigali,2025-09-30,2025-09-30,280.00,15,150,Scheduled,airline-3,Economy
+flight-5,KEN722,Nairobi,London,2025-09-30,2025-10-01,980.00,52,220,Scheduled,airline-4,Economy
+flight-6,QTR888,Doha,Kigali,2025-09-30,2025-09-30,920.00,38,200,Scheduled,airline-5,Economy
+flight-7,UAE234,Dubai,Kigali,2025-09-30,2025-10-01,890.00,41,210,Delayed,airline-6,Economy
+flight-8,TUR456,Istanbul,Kigali,2025-09-30,2025-09-30,780.00,33,180,Scheduled,airline-7,Economy
+flight-9,BAW678,London,Nairobi,2025-09-30,2025-10-01,1150.00,59,240,Scheduled,airline-8,Economy
+flight-10,AFR321,Paris,Kigali,2025-09-30,2025-10-01,1100.00,44,230,Scheduled,airline-9,Economy
+flight-11,DLH543,Frankfurt,Nairobi,2025-09-30,2025-10-01,1050.00,51,220,Scheduled,airline-10,Economy
+flight-12,SWR765,Zurich,Kigali,2025-09-30,2025-10-01,1180.00,36,200,Scheduled,airline-11,Economy
+flight-13,RWA303,Kigali,Brussels,2025-09-30,2025-10-01,1300.00,48,190,Scheduled,airline-1,Economy
+flight-14,SAA987,Johannesburg,Kigali,2025-09-30,2025-09-30,650.00,29,160,Scheduled,airline-13,Economy
+flight-15,EGY654,Cairo,Nairobi,2025-09-30,2025-09-30,720.00,42,180,Scheduled,airline-14,Economy
+flight-16,TUN432,Tunis,Kigali,2025-09-30,2025-09-30,890.00,31,170,Cancelled,airline-15,Economy
+flight-17,RAM876,Casablanca,Kigali,2025-09-30,2025-10-01,1020.00,55,200,Scheduled,airline-16,Economy
+flight-18,BRU234,Brussels,Nairobi,2025-09-30,2025-10-01,1080.00,47,210,Scheduled,airline-17,Economy
+flight-19,TAP567,Lisbon,Kigali,2025-09-30,2025-10-01,1150.00,39,190,Scheduled,airline-18,Economy
+flight-20,ITA890,Rome,Nairobi,2025-09-30,2025-10-01,1000.00,43,200,Scheduled,airline-19,Economy
