@@ -17,7 +17,7 @@ modules:
     path: gen/srv
     parameters:
       instances: 1
-      memory: 256M           # Reduced memory
+      memory:             # Reduced memory
       disk-quota: 1024M      # Reduced disk (1GB)
       buildpack: nodejs_buildpack
     build-parameters:
